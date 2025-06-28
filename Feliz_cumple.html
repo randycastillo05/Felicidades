@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>🎉 ¡Feliz Cumpleaños! 🎂</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #f6d365, #fda085);
+      overflow: hidden;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      text-align: center;
+      color: #fff;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-top: 80px;
+      text-shadow: 2px 2px 4px #000;
+      animation: popIn 1s ease-in-out;
+    }
+
+    p {
+      font-size: 1.5em;
+      margin-top: 10px;
+      text-shadow: 1px 1px 2px #000;
+    }
+
+    .foto {
+      width: 250px;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 0 15px #000;
+      margin-top: 20px;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .balloon {
+      position: absolute;
+      width: 50px;
+      height: 70px;
+      background-color: #ff4d6d;
+      border-radius: 50%;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .balloon::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      width: 2px;
+      height: 20px;
+      background: #333;
+      transform: translateX(-50%);
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-100vh); opacity: 0; }
+    }
+
+    .audio-container {
+      margin-top: 30px;
+    }
+
+    .play-button {
+      background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+      border: none;
+      border-radius: 30px;
+      padding: 10px 20px;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+    }
+
+    .play-button:hover {
+      transform: scale(1.05);
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎉 ¡Feliz Cumpleaños! 🎂</h1>
+  <h1>🎉 ¡TE DEDICO UN BRRR BEBESITA ! 🎂</h1>
+  <img src="SHANTY.jpg" alt="Foto personalizada" class="foto">
+
+  <!-- Contenedor de audio -->
+  <div class="audio-container">
+    <p><span class="music-note">🎵</span> Música de celebración <span class="music-note">🎵</span></p>
+    <button class="play-button" onclick="toggleMusic()">
+      <span id="playText">🎵 Reproducir Música</span>
+    </button>
+    <p style="font-size: 0.9em; margin-top: 10px;">
+      <em>Toca el botón para activar la música 🎶</em>
+    </p>
+  </div>
+
+  <!-- Audio -->
+  <audio id="birthdayMusic" loop>
+    <source src="afeliz.mp3" type="audio/mp3">
+    Tu navegador no soporta la reproducción de audio.
+  </audio>
+
+  <!-- Script de globos y música -->
+  <script>
+    let musicPlaying = false;
+
+    function toggleMusic() {
+      const audio = document.getElementById('birthdayMusic');
+      const playText = document.getElementById('playText');
+      const playButton = document.querySelector('.play-button');
+
+      if (musicPlaying) {
+        audio.pause();
+        playText.innerHTML = '🎵 Reproducir Música';
+        playButton.style.background = 'linear-gradient(45deg, #ff6b6b, #ee5a52)';
+        musicPlaying = false;
+      } else {
+        audio.play().then(() => {
+          playText.innerHTML = '⏸️ Pausar Música';
+          playButton.style.background = 'linear-gradient(45deg, #4ecdc4, #44a08d)';
+          musicPlaying = true;
+        }).catch((e) => {
+          alert('Toca la pantalla para permitir que se reproduzca la música 🎵');
+        });
+      }
+    }
+
+    function createBalloons() {
+      for (let i = 0; i < 25; i++) {
+        const b = document.createElement('div');
+        b.className = 'balloon';
+        b.style.left = Math.random() * 100 + 'vw';
+        b.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
+        b.style.animationDuration = (Math.random() * 5 + 5) + 's';
+        document.body.appendChild(b);
+      }
+    }
+    function enableAutoMusic() {
+  const audio = document.getElementById('birthdayMusic');
+  if (!musicPlaying) {
+    audio.play().then(() => {
+      musicPlaying = true;
+      const playText = document.getElementById('playText');
+      const playButton = document.querySelector('.play-button');
+      playText.innerHTML = '⏸️ Pausar Música';
+      playButton.style.background = 'linear-gradient(45deg, #4ecdc4, #44a08d)';
+    }).catch((e) => {
+      console.log("No se pudo reproducir automáticamente: ", e);
+    });
+  }
+  // Ya no escuchar más clics
+  document.body.removeEventListener('click', enableAutoMusic);
+}
+
+// Escuchar el primer clic o toque
+document.body.addEventListener('click', enableAutoMusic);
+    window.onload = () => {
+      createBalloons();
+    };
+  </script>
+</body>
+</html>
